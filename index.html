@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #resultados { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Resultados</h1>
+    <div id="resultados"></div>
+
+    <script>
+        // Configurações do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBfTAUYA2NMPwF2taxV25H6haR2vb8UIfk",
+            authDomain: "placares-8de90.firebaseapp.com",
+            projectId: "placares-8de90",
+            storageBucket: "placares-8de90.appspot.com",
+            messagingSenderId: "500201083567",
+            appId: "1:500201083567:web:9773364c9eed052c47ba5a",
+            measurementId: "G-YX1FXRG037"
+    };
+
+        // Inicializando o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Exibir resultados
+        const resultadosDiv = document.getElementById('resultados');
+
+        db.collection("resultados").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                resultadosDiv.innerHTML += `<p>${data.timeA} vs ${data.timeB}: ${data.golsA} - ${data.golsB}</p>`;
+            });
+        });
+    </script>
+</body>
+</html>
